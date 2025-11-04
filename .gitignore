@@ -1,0 +1,38 @@
+# General / OS / Editor
+.DS_Store
+.idea/
+.vscode/*
+!.vscode/extensions.json
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Python (Backend)
+__pycache__/
+.venv/
+*.db
+*.python-version
+
+# Node.js (Frontend)
+node_modules/
+dist/
+dist-ssr/
+*.local
+
+# ESP32 / Arduino
+build/
+*.bin
+*.elf
+*.o
+*.a
