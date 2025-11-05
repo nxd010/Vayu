@@ -11,7 +11,7 @@ To run this project locally follow the given instruction
 
 Clone the project
 ```bash
-  git clone 
+  git clone https://github.com/nxd010/Vayu.git
 ```
 Change Directory to backend
 ```bash
