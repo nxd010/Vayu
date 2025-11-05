@@ -7,13 +7,13 @@
 #include <ArduinoJson.h>
 
 // --- Wi-Fi Configuration ---
-const char* ssid = "YOUR_WIFI_SSID";        // Change this to your WiFi name
-const char* password = "YOUR_WIFI_PASSWORD"; // Change this to your WiFi password
+const char* ssid = "MNNIT";        // Change this to your WiFi name
+const char* password = ""; // Change this to your WiFi password
 
 // --- Backend Server Configuration ---
 // IMPORTANT: Replace with your laptop's local IP address
 // Find it using: ifconfig (Linux/Mac) or ipconfig (Windows)
-const char* serverUrl = "http://192.168.1.100:8000/api/sensor-data";  // CHANGE THIS IP!
+const char* serverUrl = "http://172.31.81.32:8000/api/sensor-data";  // CHANGE THIS IP!
 
 // --- Pin Definitions ---
 #define DHTPIN 4
@@ -38,7 +38,7 @@ String airQualityLevel = "Unknown";
 
 // --- Timing ---
 unsigned long lastSensorTime = 0;
-const long sensorDelay = 2000;  // Read and send every 2 seconds
+const long sensorDelay = 10000;  // Read and send every 10 seconds
 unsigned long lastBeepTime = 0;
 const long beepInterval = 2000;
 
@@ -97,7 +97,7 @@ void connectToWiFi() {
   lcd.print("Connecting WiFi");
   
   WiFi.mode(WIFI_STA);
-  WiFi.begin(ssid, password);
+  WiFi.begin(ssid);
   
   int attempts = 0;
   while (WiFi.status() != WL_CONNECTED && attempts < 20) {
@@ -138,7 +138,7 @@ void connectToWiFi() {
 }
 
 void testBackendConnection() {
-  Serial.println("🧪 Testing backend connection...");
+  Serial.println("Testing backend connection...");
   lcd.clear();
   lcd.setCursor(0, 0);
   lcd.print("Testing Backend");
@@ -211,7 +211,7 @@ bool sendDataToBackend() {
     
     if (failedRequests >= maxFailedRequests) {
       backendReachable = false;
-      Serial.println("⚠️  Too many failures, backend may be down");
+      Serial.println("Too many failures, backend may be down");
     }
   }
   
@@ -226,7 +226,7 @@ void readSensors() {
   
   // Check for valid readings
   if (isnan(temperature) || isnan(humidity)) {
-    Serial.println("⚠️  Failed to read from DHT sensor!");
+    Serial.println("Failed to read from DHT sensor!");
     temperature = 0.0;
     humidity = 0.0;
   }
