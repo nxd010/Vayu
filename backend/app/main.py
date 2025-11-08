@@ -48,7 +48,7 @@ async def run_background_tasks():
             # Wait 1 hour between runs
             await asyncio.sleep(3600)
             
-            logger.info("⏰ Running scheduled tasks...")
+            logger.info("Running scheduled tasks...")
             
             async with AsyncSession(bind=crud.engine) as db:
                 # Create hourly aggregate for previous hour
@@ -104,10 +104,11 @@ app = FastAPI(
 # Configure CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=CORS_ORIGINS,
+    allow_origins=["*"],  # Allow all origins for testing
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
+    expose_headers=["*"],
 )
 
 

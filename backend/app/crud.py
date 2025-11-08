@@ -151,7 +151,7 @@ async def create_hourly_aggregate(
         db.add(aggregate)
         await db.commit()
         await db.refresh(aggregate)
-        logger.info(f"✅ Created hourly aggregate for {hour_start}")
+        logger.info(f"Created hourly aggregate for {hour_start}")
         return aggregate
     
     return None
@@ -237,7 +237,7 @@ async def create_daily_aggregate(
         db.add(aggregate)
         await db.commit()
         await db.refresh(aggregate)
-        logger.info(f"✅ Created daily aggregate for {day_start.date()}")
+        logger.info(f"Created daily aggregate for {day_start.date()}")
         return aggregate
     
     return None
@@ -255,7 +255,7 @@ async def cleanup_old_data(db: AsyncSession):
         delete(SensorReading).where(SensorReading.timestamp < raw_cutoff)
     )
     await db.commit()
-    logger.info(f"🗑️  Deleted {result_raw.rowcount} old raw readings")
+    logger.info(f"Deleted {result_raw.rowcount} old raw readings")
     
     # Delete old hourly aggregates
     hourly_cutoff = now - timedelta(days=HOURLY_DATA_RETENTION_DAYS)
@@ -263,7 +263,7 @@ async def cleanup_old_data(db: AsyncSession):
         delete(HourlyAggregate).where(HourlyAggregate.hour_start < hourly_cutoff)
     )
     await db.commit()
-    logger.info(f"🗑️  Deleted {result_hourly.rowcount} old hourly aggregates")
+    logger.info(f"Deleted {result_hourly.rowcount} old hourly aggregates")
     
     # Delete old daily aggregates
     daily_cutoff = now - timedelta(days=DAILY_DATA_RETENTION_DAYS)
@@ -271,7 +271,7 @@ async def cleanup_old_data(db: AsyncSession):
         delete(DailyAggregate).where(DailyAggregate.date < daily_cutoff)
     )
     await db.commit()
-    logger.info(f"🗑️  Deleted {result_daily.rowcount} old daily aggregates")
+    logger.info(f"Deleted {result_daily.rowcount} old daily aggregates")
 
 
 # ===== Statistics Operations =====
